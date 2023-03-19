@@ -48,17 +48,17 @@ print('pacf done')
 # Create features
 
 def create_features(data: pd.DataFrame, relevant_lags: list):
-    data = data.copy()
-    data['year'] = data.index.year
-    data['month'] = data.index.month
-    data['week'] = data.index.isocalendar().week.astype("int64")
-    # from partial autocorrelation analysis, build relevant lags.
-    for i in relevant_lags:
-        if i > 0:
-            data[f'lag_{i}'] = data[data.columns[0]].shift(i)
-    # remove nan rows due to lags 
-    data = data.dropna()
-    return(data)
+        data = data.copy()
+        data['year'] = data.index.year
+        data['month'] = data.index.month
+        data['week'] = data.index.isocalendar().week.astype("int64")
+        # from partial autocorrelation analysis, build relevant lags.
+        for i in relevant_lags:
+                if i > 0:
+                        data[f'lag_{i}'] = data[data.columns[0]].shift(i)
+        # remove nan rows due to lags 
+        data = data.dropna()
+        return(data)
 
 stock = create_features(stock, relevant_lags)
 print(stock.dtypes)
