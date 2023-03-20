@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+import numpy as np
 
 from fastapi import FastAPI
 from fastapi import Request
@@ -31,7 +32,11 @@ async def create_item(input: Ticker):
     end_date = datetime.today()
     start_date = end_date - timedelta(days=1500)
     
-    # Check if tickers in list exist
+    # Check for tickers duplicates
+    if len(np.unique(tickers_list)) != len(tickers_list):
+        return {"message": "Please remove similar tickers!"}
+
+    # Check if tickers exist
     check_tickers = tickers_exist(tickers_list)
     
     # Return message if weights sum != 100
@@ -43,8 +48,12 @@ async def create_item(input: Ticker):
         return {"message": f"Tickers {check_tickers[1]} do no exist !"}
     
     # Get tickers
-    df = getData(tickers_list, start_date, end_date)
-    
+    df, excluded_tickers = getData(tickers_list, start_date, end_date)
+
+    # Return message if ticker excluded due to missing historical datas
+    if len([i for i in excluded_tickers.index if excluded_tickers[i]])!= 0:
+        return {"message": f"Not enough historical datas for those tickers: {[i for i in excluded_tickers.index if excluded_tickers[i]]}, Please remove them from tickers list"}
+
     # Compute optimal portfolio
     optimal = optimize_potfolio(df, tickers_list, weights_list)
     
@@ -58,7 +67,3 @@ async def create_item(input: Ticker):
 
 # Static files
 app.mount("/graphs", StaticFiles(directory="graphs"), name="graphs")
-
-
-# if __name__ == "__main__":
-#     uvicorn.run(app, host="0.0.0.0", port=8000)

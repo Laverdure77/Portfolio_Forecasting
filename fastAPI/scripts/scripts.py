@@ -40,7 +40,10 @@ def getData(tickers:list, start_date:datetime, end_date:datetime) -> pd.DataFram
                     end=end_date
                     )
     df = df['Adj Close']
-    return df
+    # If historical data for last 100 days are nan, exclude the ticker.
+    historical_threshold = 100
+    excluded_tickers = pd.isnull(df.tail(historical_threshold)).sum() >= 100
+    return df, excluded_tickers
 
 #-----------------------------------------------------------------------
 # return and volatility
