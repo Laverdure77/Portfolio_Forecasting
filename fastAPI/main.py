@@ -57,7 +57,7 @@ async def create_item(input: Ticker):
     return optimal, graphs
 
 # Static files
-app.mount("/graphs", StaticFiles(directory="fastAPI/graphs"), name="graphs")
+app.mount("/graphs", StaticFiles(directory="graphs"), name="graphs")
 
 
 # if __name__ == "__main__":

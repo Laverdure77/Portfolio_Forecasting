@@ -60,56 +60,43 @@ def optimize_potfolio(df: pd.DataFrame, tickers_list:list[str], weights_list:lis
     # Calculate daily and annual returns of the stocks
     returns_daily = df.pct_change()
     returns_annual = returns_daily.mean() * 252
-
     # Get daily and covariance of returns of the stocks
     cov_daily = returns_daily.cov()
     cov_annual = cov_daily * 252
-
     # Actual portfolio return, volatility and sharpe
     actual_volatility = volatility_performance(weights_list, cov_annual)
     actual_return = return_performance(weights_list, returns_annual)    
     actual_sharpe = actual_return / actual_volatility
-
     # a dictionary for Returns and Risk values of each portfolio
     actual_portfolio = {'Returns': actual_return,
                         'Volatility': actual_volatility,
                         'Sharpe Ratio': actual_sharpe
                         }
-
     # extend original dictionary to accomodate each ticker and weight in the portfolio
     for counter,symbol in enumerate(tickers_list):
         actual_portfolio[symbol+' weight'] = weights_list[counter]
-
     # make a nice dataframe of the extended dictionary
     actual_portfolio_df = pd.DataFrame.from_dict(actual_portfolio, orient='index').T
-    print(actual_portfolio_df)
-
     # empty lists to store returns, volatility and weights of imiginary portfolios
     port_returns = []
     port_volatility = []
     stock_weights = []
     sharpe_ratio = []
-
     # set the number of combinations for imaginary portfolios
     num_assets = len(tickers_list)
     num_portfolios = 60000
-
     #set random seed for reproduction's sake
     np.random.seed(101)
-
     # populate the empty lists with each portfolios returns,risk and weights
     for single_portfolio in range(num_portfolios):
         # generate random weights and normalize.
         weights_list = np.random.random(num_assets)
         weights_list /= np.sum(weights_list)
-
-        # returns = np.dot(weights_list, returns_annual)
-        # volatility = np.sqrt(np.dot(weights_list.T, np.dot(cov_annual, weights_list)))
+        # portfolio performance
         returns = return_performance(weights_list, returns_annual)  
         volatility = volatility_performance(weights_list, cov_annual)
-
         sharpe = returns / volatility
-
+        # append result to dedicated list
         sharpe_ratio.append(sharpe)
         port_returns.append(returns)
         port_volatility.append(volatility)
@@ -119,17 +106,13 @@ def optimize_potfolio(df: pd.DataFrame, tickers_list:list[str], weights_list:lis
     portfolio = {'Returns': port_returns,
                 'Volatility': port_volatility,
                 'Sharpe Ratio': sharpe_ratio}
-
     # extend original dictionary to accomodate each ticker and weight in the portfolio
     for counter,symbol in enumerate(tickers_list):
         portfolio[symbol+' weight'] = [weight[counter] for weight in stock_weights]
-
     # make a nice dataframe of the extended dictionary
     df = pd.DataFrame(portfolio)
-
     # get better labels for desired arrangement of columns
     column_order = ['Returns', 'Volatility','Sharpe Ratio'] + [stock+' weight' for stock in tickers_list]
-
     # reorder dataframe columns
     df = df[column_order]
 
@@ -140,28 +123,21 @@ def optimize_potfolio(df: pd.DataFrame, tickers_list:list[str], weights_list:lis
     max_volatility = df['Volatility'].max()
     max_return = df['Returns'].max()
     min_return = df['Returns'].min()
-
     # use the min, max values to locate and create the two special portfolios
     sharpe_portfolio = df.loc[df['Sharpe Ratio'] == max_sharpe]
     min_variance_port = df.loc[df['Volatility'] == min_volatility]
-
     # Plot tangent, best ratio Return(mean)/Volatility(std dev)
     tangent = df.loc[(df['Returns']/df['Volatility']).idxmax()]
     x_tangent = [0,tangent['Volatility'],1]
     y_tangent = [0,tangent['Returns'],tangent['Returns']/tangent['Volatility']]
-
     # Actual portfolio Return and Volatility
     x_actual = [actual_volatility]
     y_actual = [actual_return]
-
     # Find optimal return portfolio for actual Volatility and Return
     closest_volatility = df.iloc[(df['Volatility']-(actual_volatility)).abs().argsort()[:10]]
     max_return_for_volatility = closest_volatility[closest_volatility['Returns']==closest_volatility['Returns'].max()]
-
     closest_return = df.iloc[(df['Returns']-actual_return).abs().argsort()[:10]]
     min_volatility_for_return = closest_return[closest_return['Volatility']==closest_return['Volatility'].min()]
-
-
 
     # plot frontier, max sharpe & min Volatility values with a scatterplot
     fig, ax = plt.subplots(figsize=(6, 4))
@@ -243,7 +219,7 @@ def optimize_potfolio(df: pd.DataFrame, tickers_list:list[str], weights_list:lis
     plt.ylabel('Expected Returns')
     plt.title('Efficient Frontier')
 
-    efficient_frontier_plot = './fastAPI/graphs/efficient_frontier.png'
+    efficient_frontier_plot = './graphs/efficient_frontier.png'
     with open(efficient_frontier_plot, mode='w') as f:
         plt.savefig(efficient_frontier_plot, dpi='figure', format='png', metadata=None,
             bbox_inches='tight', pad_inches=0.1,
@@ -252,9 +228,9 @@ def optimize_potfolio(df: pd.DataFrame, tickers_list:list[str], weights_list:lis
         )
     plt.close()
 
-    # plot frontier, max sharpe & min Volatility values with a scatterplot
+    # plot weights for each portfolio
     def plot_weights ():
-        fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5,1,figsize=(6, 12))
+        fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5,1,figsize=(len(tickers_list)*1.5, 12))
         fig.tight_layout(pad=2.5)
         plt.axis('equal')
 
@@ -276,8 +252,7 @@ def optimize_potfolio(df: pd.DataFrame, tickers_list:list[str], weights_list:lis
         ax4.set_ylim(0,1)
         ax5.set_ylim(0,1)
 
-        
-        optimisation_plot = './fastAPI/graphs/optimisation_plot.png'
+        optimisation_plot = './graphs/optimisation_plot.png'
         with open(optimisation_plot, mode='w') as f:
             plt.savefig(optimisation_plot, dpi='figure', format='png', metadata=None,
                 bbox_inches='tight', pad_inches=0.1,
