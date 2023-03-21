@@ -3,7 +3,7 @@
 ## A fast api to optimize your portfolio  
 
 <p align="center">
-    <img src="./datas/efficient frontier.png"
+    <img src="./datas/efficient_frontier.png"
          alt="Efficient Frontier graph">
 </p>
 
@@ -19,10 +19,11 @@
 Portfolio Optimizer API
 This API allows users to optimize a portfolio of tickers based on historical data.
 
+<img src=".\datas\fast_api.png" alt="efficient frontier" align="center"> 
+
 API Endpoints
 Root
 Endpoint to check if the API is running.
-
 Request:
 
 ```sql
