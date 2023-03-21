@@ -63,10 +63,12 @@ POST /tickers/
 
 Parameters:
 
-tickers: a list of strings containing the tickers of the assets in the portfolio.
+The POST request body is a JSON format with two keys:  
+
+tickers: a list of strings containing the tickers of the assets in the portfolio.  
 weights: a list of integers containing the weights of the assets in the portfolio.  
 
-You can test it on the post tab of the api documentation, or using a api client like thunderclient.
+You can test it on the post tab of the api documentation, or using an api client like thunderclient or postman.
 
 <p align="center">
 <img src=".\datas\Query_render.png" alt="efficient frontier" align="center"> 
@@ -145,7 +147,7 @@ The portfolio optimisation graph shows the weights for each portfolio.
 
  
 
-Dependencies  
+### Dependencies  
 
 Python 3.8 or higher  
 FastAPI  
