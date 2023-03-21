@@ -2,10 +2,15 @@
 
 ## A fast api to optimize your portfolio  
 
+This API allows users to optimize a portfolio of tickers based on historical data.  
 <p align="center">
     <img src="./datas/efficient_frontier.png"
          alt="Efficient Frontier graph">
 </p>
+
+## Efficient frontier
+
+Efficient frontier optimization is a method used in finance to find the optimal portfolio of assets that provides the highest expected return for a given level of risk or the lowest risk for a given level of expected return. It involves calculating the expected returns and covariance matrix of a set of assets, and then finding the set of portfolios that lie on the efficient frontier, which represents the best possible trade-off between expected return and risk. This optimization method can be used to construct portfolios that are well-diversified and optimized for a specific level of risk tolerance or investment objective.
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
@@ -16,8 +21,7 @@
   <a href="#license">License</a>
 </p>
 
-Portfolio Optimizer API
-This API allows users to optimize a portfolio of tickers based on historical data.  
+Portfolio Optimizer API  
 <p align="center">
 <img src=".\datas\fast_api.png" alt="efficient frontier" align="center"> 
 </p>
@@ -80,6 +84,7 @@ If successful, the endpoint returns a JSON object containing the optimized portf
     }
 }
 ```
+
 If there is an error, the endpoint returns a JSON object with an error message:
 
 Please remove similar tickers!  
