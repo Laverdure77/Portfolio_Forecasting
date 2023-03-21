@@ -17,10 +17,10 @@
 </p>
 
 Portfolio Optimizer API
-This API allows users to optimize a portfolio of tickers based on historical data.
-
+This API allows users to optimize a portfolio of tickers based on historical data.  
+<p align="center">
 <img src=".\datas\fast_api.png" alt="efficient frontier" align="center"> 
-
+</p>
 API Endpoints
 Root
 Endpoint to check if the API is running.
@@ -29,24 +29,33 @@ Request:
 ```sql
 GET /
 ```
+
 Response:
 
 ```json
 {
-    "message": "Welcome to Portfolio Optimizer!"
+  "message": "Welcome to Portfolio Optimizer!"
 }
 ```
+
 Tickers
 Endpoint to optimize a portfolio of tickers.
 
 Request:
+
 ```sql
 POST /tickers/
 ```
+
 Parameters:
 
 tickers: a list of strings containing the tickers of the assets in the portfolio.
-weights: a list of integers containing the weights of the assets in the portfolio.
+weights: a list of integers containing the weights of the assets in the portfolio.  
+
+<p align="center">
+<img src=".\datas\Query.png" alt="efficient frontier" align="center"> 
+</p>
+
 Response:
 
 If successful, the endpoint returns a JSON object containing the optimized portfolio and URLs to two graphs:
@@ -103,15 +112,18 @@ A static image file.
 Installation
 Clone the repository.
 Install the required packages using the following command:
-```
+
+```python
 pip install -r requirements.txt
 ```
+
 Usage
 Start the API using the following command:
 
 ```python
 uvicorn main:app --reload
 ```
+
 Go to http://localhost:8000/docs to access the API documentation and test the endpoints.  
 Dependencies  
 Python 3.8 or higher  
