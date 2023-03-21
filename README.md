@@ -144,7 +144,7 @@ The efficient frontier graph shows:
 - the best return portfolio in red,  
 - the minimum risk portfolio in green,  
 - the portfolio optimizing the return for the actual risk, in blue (verticla arrow),  
-- the porfolio reducing the risk for the actual return (horizontal arrow).  
+- the porfolio reducing the risk for the actual return, in blue (horizontal arrow).  
 
 The portfolio optimisation graph shows the weights for each portfolio.  
 
