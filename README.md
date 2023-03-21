@@ -73,11 +73,11 @@ weights: a list of integers containing the weights of the assets in the portfoli
 You can test it on the post tab of the api documentation, or using an api client like thunderclient or postman.
 
 <p align="center">
-<img src=".\datas\Query_render.png" alt="efficient frontier" align="center"> 
+<img src=".\datas\query_render.png" alt="Query_render" align="center"> 
 
 </p>
 <p align="center">
-<img src=".\datas\Query.png" alt="efficient frontier" align="center"> 
+<img src=".\datas\Query.png" alt="Query_thunderclient" align="center"> 
 </p>
 
 Response:
