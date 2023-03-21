@@ -161,4 +161,4 @@ The portfolio optimisation graph shows the weights for each portfolio.
 
 ---
 
-> GitHub  [Meulemans Phhilippe](https://github.com/Laverdure77) &nbsp;&middot;&nbsp;
+> GitHub  [Meulemans Philippe](https://github.com/Laverdure77) &nbsp;&middot;&nbsp;
