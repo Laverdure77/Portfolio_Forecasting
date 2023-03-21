@@ -26,7 +26,7 @@ def tickers_exist(tickers:list[str]) -> list[bool,list[str]]:
             error_list.append(t)
             continue
         # Got the info of the ticker
-        print(f"{t} exist")
+        print(f"{t} ✅")
     if len(error_list) == 0:
         return [True, error_list]
     else:

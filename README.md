@@ -1,5 +1,6 @@
 # Portfolio Optimizer
 
+## A fast api to optimize your portfolio  
 
 <p align="center">
     <img src="./datas/efficient frontier.png"
@@ -14,9 +15,118 @@
   <a href="#related">Related</a> •
   <a href="#license">License</a>
 </p>
+
+Portfolio Optimizer API
+This API allows users to optimize a portfolio of tickers based on historical data.
+
+API Endpoints
+Root
+Endpoint to check if the API is running.
+
+Request:
+
+```sql
+GET /
+```
+Response:
+
+```json
+{
+    "message": "Welcome to Portfolio Optimizer!"
+}
+```
+Tickers
+Endpoint to optimize a portfolio of tickers.
+
+Request:
+```sql
+POST /tickers/
+```
+Parameters:
+
+tickers: a list of strings containing the tickers of the assets in the portfolio.
+weights: a list of integers containing the weights of the assets in the portfolio.
+Response:
+
+If successful, the endpoint returns a JSON object containing the optimized portfolio and URLs to two graphs:
+
+```json
+{
+    "portfolio": {
+        "return": 0.07834263983865495,
+        "volatility": 0.10597974076381088,
+        "sharpe_ratio": 0.7377197342857546,
+        "weights": [
+            0.2843565124085234,
+            0.2647558605077321,
+            0.06261841747241835,
+            0.2588443351981374,
+            0.1294248744131898
+        ]
+    },
+    "graphs": {
+        "efficient_frontier": "/graphs/efficient_frontier.png",
+        "weights": "/graphs/optimisation_plot.png"
+    }
+}
+```
+If there is an error, the endpoint returns a JSON object with an error message:
+
+Please remove similar tickers!  
+Please check the sum of weights is equal to 100!  
+Tickers [ticker1, ticker2] do not exist!  
+Not enough historical data for those tickers: [ticker1], please remove them from the tickers list.  
+Graphs
+Endpoint to access static graph files.
+
+Request:
+
+```sql
+GET /graphs/efficient_frontier.png
+GET /graphs/optimisation_plot.png
+```
+Response:
+
+A static image file.
+<table border="0">
+ <tr>
+    <td><p style="font-size:1em" align="center">Illustration from classification</b></td>
+    <td><p style="font-size:1em" align="center">Illustration from clustering</b></td>
+ </tr>
+ <tr>
+    <td><img src=".\datas\efficient_frontier.png" alt="efficient frontier" align="center"></td>
+    <td><img src=".\datas\optimisation_plot.png" alt="graph from clustering model" align="center"></td>
+ </tr>
+</table>
+
+Installation
+Clone the repository.
+Install the required packages using the following command:
+```
+pip install -r requirements.txt
+```
+Usage
+Start the API using the following command:
+
+```python
+uvicorn main:app --reload
+```
+Go to http://localhost:8000/docs to access the API documentation and test the endpoints.  
+Dependencies  
+Python 3.8 or higher  
+FastAPI  
+NumPy  
+Pandas  
+SciPy  
+Matplotlib  
 ## Key Features
 
 * Deployed on render
+  - https://portfolio-optimizer.onrender.com/docs
+  - https://portfolio-optimizer.onrender.com/docs
+  - https://portfolio-optimizer.onrender.com/docs
+  - https://portfolio-optimizer.onrender.com/docs
+  - https://portfolio-optimizer.onrender.com/docs
   - https://portfolio-optimizer.onrender.com/docs
 * Sync Scrolling
   - While you type, LivePreview will automatically scroll to the current location you're editing.
