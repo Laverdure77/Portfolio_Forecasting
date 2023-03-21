@@ -148,8 +148,6 @@ The efficient frontier graph shows:
 
 The portfolio optimisation graph shows the weights for each portfolio.  
 
- 
-
 ### Dependencies  
 
 - Python 3.8 or higher  
