@@ -15,7 +15,7 @@ Efficient frontier optimization is a method used in finance to find the optimal 
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
+  <a href="#API-Endpoints">API Endpoints</a> •
   <a href="#credits">Credits</a> •
   <a href="#related">Related</a> •
   <a href="#license">License</a>
@@ -31,8 +31,8 @@ If the API is currently offline or unavailable, wait for it to wake up.
 This may take a few minutes or more, depending on the reason for the outage.
 Once the API is awake and running, you can start making requests to it as usual.
 
-API Endpoints
-Root
+## API Endpoints  
+#### Root  
 Endpoint to check if the API is running.  
 Request:
 
@@ -52,7 +52,8 @@ Response:
 <img src=".\datas\fast_api.png" alt="efficient frontier" align="center"> 
 </p>
 
-Tickers
+#### Tickers 
+
 Endpoint to optimize a portfolio of tickers.
 
 Request:
@@ -61,7 +62,7 @@ Request:
 POST /tickers/
 ```
 
-Parameters:
+#### Parameters
 
 The POST request body is a JSON format with two keys:  
 
@@ -111,7 +112,8 @@ If there is an error, the endpoint returns a JSON object with an error message:
 - Tickers [ticker1, ticker2] do not exist!  
 - Not enough historical data for those tickers: [ticker1], please remove them from the tickers list.  
 
-Graphs
+#### Graphs
+
 Endpoint to access static graph files.
 
 Request:
