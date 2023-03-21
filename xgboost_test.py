@@ -87,7 +87,7 @@ print('test train done')
 #-------------------------------------------------------------------
 # Cross Validation on historical datas
 
-tss = TimeSeriesSplit(n_splits=5, test_size=12, gap=0)
+tss = TimeSeriesSplit(n_splits=5, test_size=12, gap=10 )
 
 fold = 0
 preds = []
