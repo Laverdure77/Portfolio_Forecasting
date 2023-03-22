@@ -79,7 +79,7 @@ GET /docs
 <img src=".\datas\fast_api.png" alt="efficient frontier" align="center" heigth=200px width=auto> 
 </p>
 
-#### Tickers 
+### Tickers 
 
 Endpoint to optimize a portfolio of tickers.
 
@@ -89,7 +89,7 @@ Request:
 POST /tickers/
 ```
 
-#### Parameters
+### Parameters
 
 The POST request body is a JSON format with two keys:  
 
@@ -120,7 +120,7 @@ If there is an error, the endpoint returns a JSON object with an error message:
 - Tickers [ticker1, ticker2] do not exist!  
 - Not enough historical data for those tickers: [ticker1], please remove them from the tickers list.  
 
-#### Graphs
+### Graphs
 
 Endpoint to access static graph files.
 
