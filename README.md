@@ -31,7 +31,7 @@ This optimization method can be used to construct portfolios that are well-diver
  
 ## How Does It Work  
 
-Based on 4 years of historicl datas, the python script calculate the annual means (returns) and covariance of returns (volality) of the stocks.   
+Based on 4 years of historical datas, the python script calculate the annual means (returns) and covariance of returns (volality) of the stocks.   
 Then it generates 60000 portfolios by randomly assigning weights to each stock.  
 For each portfolio, it calculates the returns, volatility, and Sharpe ratio.  
 Sharpe ratio is the ratio between the return to volatility.  
@@ -68,7 +68,7 @@ Response:
 ```
 ### Docs
 Endpoint to access the interactive documentation.  
-<a href="https://portfolio-optimizer.onrender.com/docs">https://portfolio-optimizer.onrender.com/docs</a> 
+<a href="https://portfolio-optimizer.onrender.com/docs">https://portfolio-optimizer.onrender.com/docs</a>  
 Request:
 
 ```sql
@@ -160,10 +160,11 @@ The portfolio optimisation graph shows the weights for each portfolio.
 9 working days to discover Time Series, portfolio optimisation, build the app and deployment.
 ### Possible Improvements
 
-- Improve the script to optimize the best return for actual risk and minimum risk for actual return portfolio:
+- Improve the script to optimize the best return for actual risk and minimum risk for actual return portfolio:  
   in some cases, those optimized portfolio ( blue points on graphs) are not relevant.  
-  They are choosen amongst the random portfolio created, and the script doesn't find any better porfolio , especially when actual portoflio lies already near the efficient frontier.
-- Build a user fiendly interface
+  They are choosen amongst the random portfolio created, and the script doesn't find any better porfolio, especially when actual portoflio lies already near the efficient frontier.
+- Build a user fiendly interface.
+
 ### Dependencies  
 
 - Python 3.11  
