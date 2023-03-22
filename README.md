@@ -1,8 +1,13 @@
-# Portfolio Optimizer
+# Portfolio Optimizer API
 
-## A fast api to optimize your portfolio  
+## Description  
 
-This API allows users to optimize a portfolio of tickers based on historical data.  
+Using historical datas from yahoo finance,
+this API allows users to optimize a portfolio based on Efficient Frontier optimisation.  
+The user enters a list of tickers and corresponding weigths in the portfolio, the API returns four different portfolio optimisation based on return versus risk ratio.  
+The API is built on the FastAPI framework and deployed, using Docker, on render.com.
+
+<br/>
 <p align="center">
     <img src="./datas/efficient_frontier.png"
          alt="Efficient Frontier graph">
@@ -10,6 +15,7 @@ This API allows users to optimize a portfolio of tickers based on historical dat
 
 <p align="center">
   <a href="#Efficient-frontier">Efficient frontier</a> •
+  <a href="#How-Does-It-Work">How Does It Work</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#API-Endpoints">API Endpoints</a> •
   <a href="#Parameters">Parameters</a> •
@@ -19,10 +25,21 @@ This API allows users to optimize a portfolio of tickers based on historical dat
 
 ## Efficient frontier
 
-Efficient frontier optimization is a method used in finance to find the optimal portfolio of assets that provides the highest expected return for a given level of risk or the lowest risk for a given level of expected return. It involves calculating the expected returns and covariance matrix of a set of assets, and then finding the set of portfolios that lie on the efficient frontier, which represents the best possible trade-off between expected return and risk. This optimization method can be used to construct portfolios that are well-diversified and optimized for a specific level of risk tolerance or investment objective.
+Efficient frontier optimization (Monte Carlo simulation) is a method used in finance to find the optimal portfolio of assets that provides the highest expected return for a given level of risk or the lowest risk for a given level of expected return.  
+It involves calculating the expected returns and covariance matrix of a set of assets, and then finding the set of portfolios that lie on the efficient frontier, which represents the best possible trade-off between expected return and risk.  
+This optimization method can be used to construct portfolios that are well-diversified and optimized for a specific level of risk tolerance or investment objective.
+ 
+## How Does It Work  
 
-
-Portfolio Optimizer API  
+Based on 4 years of historicl datas, the python script calculate the annual means (returns) and covariance of returns (volality) of the stocks.   
+Then it generates 60000 portfolios by randomly assigning weights to each stock.  
+For each portfolio, it calculates the returns, volatility, and Sharpe ratio.  
+Sharpe ratio is the ratio between the return to volatility.  
+Finally, it returns the best porfolio for:
+- minimum risk
+- best SHAPE ratio
+- best return for actual risk
+- minimum risk for actual return
 
 ## How To Use
 The API is deployed on render.com, on <a href="https://portfolio-optimizer.onrender.com/">https://portfolio-optimizer.onrender.com/</a> 
@@ -31,9 +48,10 @@ The API is deployed on render.com, on <a href="https://portfolio-optimizer.onren
 If the API is currently offline or unavailable, wait for it to wake up.
 This may take a few minutes or more, depending on the reason for the outage.
 Once the API is awake and running, you can start making requests to it as usual.
+The API response could take up to 2 minutes due to restricted cpu usage on the server.
 
 ## API Endpoints  
-#### Root  
+### Root  
 Endpoint to check if the API is running.  
 Request:
 
@@ -48,9 +66,17 @@ Response:
   "message": "Welcome to Portfolio Optimizer!"
 }
 ```
+### Docs
+Endpoint to access the interactive documentation.  
+<a href="https://portfolio-optimizer.onrender.com/docs">https://portfolio-optimizer.onrender.com/docs</a> 
+Request:
+
+```sql
+GET /docs
+```
 
 <p align="center">
-<img src=".\datas\fast_api.png" alt="efficient frontier" align="center"> 
+<img src=".\datas\fast_api.png" alt="efficient frontier" align="center" heigth=200px width=auto> 
 </p>
 
 #### Tickers 
@@ -72,38 +98,19 @@ weights: a list of integers containing the weights of the assets in the portfoli
 
 You can test it on the post tab of the api documentation, or using an api client like thunderclient or postman.
 
-<p align="center">
+<p align="center" width=200px>
 <img src=".\datas\query_render.png" alt="Query_render" align="center"> 
 
 </p>
 <p align="center">
-<img src=".\datas\Query.png" alt="Query_thunderclient" align="center"> 
+<img src=".\datas\thunderclient.png" alt="Query_thunderclient" align="center"> 
 </p>
 
 Response:
 
-If successful, the endpoint returns a JSON object containing the optimized portfolio and URLs to two graphs:
+If successful, the endpoint returns a JSON object containing the optimized portfolio and URLs to two graphs.
 
-```json
-{
-    "portfolio": {
-        "return": 0.07834263983865495,
-        "volatility": 0.10597974076381088,
-        "sharpe_ratio": 0.7377197342857546,
-        "weights": [
-            0.2843565124085234,
-            0.2647558605077321,
-            0.06261841747241835,
-            0.2588443351981374,
-            0.1294248744131898
-        ]
-    },
-    "graphs": {
-        "efficient_frontier": "/graphs/efficient_frontier.png",
-        "weights": "/graphs/optimisation_plot.png"
-    }
-}
-```
+
 
 
 If there is an error, the endpoint returns a JSON object with an error message:
@@ -148,15 +155,25 @@ The efficient frontier graph shows:
 
 The portfolio optimisation graph shows the weights for each portfolio.  
 
+### Time line
+
+9 working days to discover Time Series, portfolio optimisation, build the app and deployment.
+### Possible Improvements
+
+- Improve the script to optimize the best return for actual risk and minimum risk for actual return portfolio:
+  in some cases, those optimized portfolio ( blue points on graphs) are not relevant.  
+  They are choosen amongst the random portfolio created, and the script doesn't find any better porfolio , especially when actual portoflio lies already near the efficient frontier.
+- Build a user fiendly interface
 ### Dependencies  
 
-- Python 3.8 or higher  
+- Python 3.11  
 - FastAPI  
 - NumPy  
 - Pandas  
-- SciPy  
-- Matplotlib  
+- Matplotlib
+- Seaborn
 
 ---
 
 > GitHub  [Meulemans Philippe](https://github.com/Laverdure77) &nbsp;&middot;&nbsp;
+> LinkedIn  [Meulemans Philippe](https://www.linkedin.com/in/meulemans-philippe/) &nbsp;&middot;&nbsp;
