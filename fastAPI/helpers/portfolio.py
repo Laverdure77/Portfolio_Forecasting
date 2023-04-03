@@ -20,8 +20,8 @@ class Portfolio():
         self.tickers = tickers
         self.weights = weights
         
-    # Check if tickers exist on yfinance api
     def tickers_exist(self):
+        # Check if tickers exist on yfinance api    
         error_list = []
         for t in self.tickers:
             ticker = yf.Ticker(t)

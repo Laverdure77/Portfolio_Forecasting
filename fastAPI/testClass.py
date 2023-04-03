@@ -13,7 +13,7 @@ weights = [20, 30, 30, 20]
 pf = Portfolio(tickers, weights)
 pf.tickers_exist()
 
-if pf.exist :
+if pf.exist:
     pf.getData(start_date, end_date)
     # print(pf.excluded)
     opt = pf.optimize()
